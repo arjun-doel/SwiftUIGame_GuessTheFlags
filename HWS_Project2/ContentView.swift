@@ -17,7 +17,11 @@ struct ContentView: View {
     
     var body: some View {
         ZStack {
-            LinearGradient(gradient: Gradient(colors: [.blue, .black]), startPoint: .top, endPoint: .bottom)
+//            LinearGradient(gradient: Gradient(colors: [.blue, .black]), startPoint: .top, endPoint: .bottom)
+            RadialGradient(stops: [
+                .init(color: Color(red: 0.1, green: 0.2, blue: 0.45), location: 0.3),
+                .init(color: Color(red: 0.67, green: 0.15, blue: 0.26), location: 0.3)
+            ], center: .top, startRadius: 200, endRadius: 700)
                 .ignoresSafeArea()
             VStack(spacing: 20) {
                 HStack {
@@ -25,7 +29,7 @@ struct ContentView: View {
                         .font(.subheadline.weight(.heavy))
                         .foregroundColor(.white)
                     Text("\(score)")
-                        .foregroundColor(.green)
+                        .foregroundColor(score >= 0 ? .green : .red)
                         .font(.largeTitle.weight(.semibold))
                 }
                 Spacer()
@@ -38,6 +42,8 @@ struct ContentView: View {
                         .foregroundColor(.white)
                         .font(.largeTitle.weight(.semibold))
                 }
+                Spacer()
+                    .frame(height: 70)
                 ForEach(0..<3) { number in
                     Button {
                         flagTapped(number)
